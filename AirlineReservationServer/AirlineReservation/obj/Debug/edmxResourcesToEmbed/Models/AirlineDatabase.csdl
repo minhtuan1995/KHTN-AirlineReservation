@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AirlineDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="AirlineDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AirPlanes" EntityType="AirlineDatabaseModel.AirPlane" />
+    <EntitySet Name="Schedules" EntityType="AirlineDatabaseModel.Schedule" />
+    <EntitySet Name="Seats" EntityType="AirlineDatabaseModel.Seat" />
+    <EntitySet Name="Users" EntityType="AirlineDatabaseModel.User" />
+    <AssociationSet Name="fk_airplane" Association="AirlineDatabaseModel.fk_airplane">
+      <End Role="AirPlane" EntitySet="AirPlanes" />
+      <End Role="Schedule" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedule" Association="AirlineDatabaseModel.fk_schedule">
+      <End Role="Schedule" EntitySet="Schedules" />
+      <End Role="Seats" EntitySet="Seats" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user" Association="AirlineDatabaseModel.fk_user">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Seats" EntitySet="Seats" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AirPlane">
+    <Key>
+      <PropertyRef Name="AirplaneID" />
+    </Key>
+    <Property Name="AirplaneID" Type="Int32" Nullable="false" />
+    <Property Name="AirplaneCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Seats_FirstClass" Type="Int32" />
+    <Property Name="Seats_Economy" Type="Int32" />
+    <Property Name="Price_FirstClass" Type="Double" />
+    <Property Name="Price_Economy" Type="Double" />
+    <NavigationProperty Name="Schedules" Relationship="AirlineDatabaseModel.fk_airplane" FromRole="AirPlane" ToRole="Schedule" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+    <Property Name="AirplaneID" Type="Int32" />
+    <Property Name="Airport_Departure" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Airport_Arrival" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Time_Departure" Type="DateTime" Precision="3" />
+    <Property Name="Time_Arrival" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AirPlane" Relationship="AirlineDatabaseModel.fk_airplane" FromRole="Schedule" ToRole="AirPlane" />
+    <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_schedule" FromRole="Schedule" ToRole="Seats" />
+  </EntityType>
+  <EntityType Name="Seat">
+    <Key>
+      <PropertyRef Name="SeatID" />
+    </Key>
+    <Property Name="SeatID" Type="Int32" Nullable="false" />
+    <Property Name="ScheduleID" Type="Int32" />
+    <Property Name="SeatType" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CurrentStatus" Type="Int32" />
+    <NavigationProperty Name="Schedule" Relationship="AirlineDatabaseModel.fk_schedule" FromRole="Seats" ToRole="Schedule" />
+    <NavigationProperty Name="User" Relationship="AirlineDatabaseModel.fk_user" FromRole="Seats" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_user" FromRole="Users" ToRole="Seats" />
+  </EntityType>
+  <Association Name="fk_airplane">
+    <End Role="AirPlane" Type="AirlineDatabaseModel.AirPlane" Multiplicity="0..1" />
+    <End Role="Schedule" Type="AirlineDatabaseModel.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AirPlane">
+        <PropertyRef Name="AirplaneID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="AirplaneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedule">
+    <End Role="Schedule" Type="AirlineDatabaseModel.Schedule" Multiplicity="0..1" />
+    <End Role="Seats" Type="AirlineDatabaseModel.Seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleID" />
+      </Principal>
+      <Dependent Role="Seats">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user">
+    <End Role="Users" Type="AirlineDatabaseModel.User" Multiplicity="0..1" />
+    <End Role="Seats" Type="AirlineDatabaseModel.Seat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Seats">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

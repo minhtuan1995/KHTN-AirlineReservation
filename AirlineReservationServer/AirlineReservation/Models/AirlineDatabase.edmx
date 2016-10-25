@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AirlineDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="AirlineDatabaseModelStoreContainer">
+          <EntitySet Name="AirPlane" EntityType="AirlineDatabaseModel.Store.AirPlane" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Schedule" EntityType="AirlineDatabaseModel.Store.Schedule" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Seats" EntityType="AirlineDatabaseModel.Store.Seats" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="AirlineDatabaseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="fk_airplane" Association="AirlineDatabaseModel.Store.fk_airplane">
+            <End Role="AirPlane" EntitySet="AirPlane" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedule" Association="AirlineDatabaseModel.Store.fk_schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="AirlineDatabaseModel.Store.fk_user">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AirPlane">
+          <Key>
+            <PropertyRef Name="AirplaneID" />
+          </Key>
+          <Property Name="AirplaneID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AirplaneCode" Type="varchar" MaxLength="50" />
+          <Property Name="Seats_FirstClass" Type="int" />
+          <Property Name="Seats_Economy" Type="int" />
+          <Property Name="Price_FirstClass" Type="float" />
+          <Property Name="Price_Economy" Type="float" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AirplaneID" Type="int" />
+          <Property Name="Airport_Departure" Type="varchar" MaxLength="50" />
+          <Property Name="Airport_Arrival" Type="varchar" MaxLength="50" />
+          <Property Name="Time_Departure" Type="datetime" />
+          <Property Name="Time_Arrival" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Seats">
+          <Key>
+            <PropertyRef Name="SeatID" />
+          </Key>
+          <Property Name="SeatID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ScheduleID" Type="int" />
+          <Property Name="SeatType" Type="varchar" MaxLength="1" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="CurrentStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="fk_airplane">
+          <End Role="AirPlane" Type="AirlineDatabaseModel.Store.AirPlane" Multiplicity="0..1" />
+          <End Role="Schedule" Type="AirlineDatabaseModel.Store.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AirPlane">
+              <PropertyRef Name="AirplaneID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="AirplaneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedule">
+          <End Role="Schedule" Type="AirlineDatabaseModel.Store.Schedule" Multiplicity="0..1" />
+          <End Role="Seats" Type="AirlineDatabaseModel.Store.Seats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="Users" Type="AirlineDatabaseModel.Store.Users" Multiplicity="0..1" />
+          <End Role="Seats" Type="AirlineDatabaseModel.Store.Seats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AirlineDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AirlineDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AirPlanes" EntityType="AirlineDatabaseModel.AirPlane" />
+          <EntitySet Name="Schedules" EntityType="AirlineDatabaseModel.Schedule" />
+          <EntitySet Name="Seats" EntityType="AirlineDatabaseModel.Seat" />
+          <EntitySet Name="Users" EntityType="AirlineDatabaseModel.User" />
+          <AssociationSet Name="fk_airplane" Association="AirlineDatabaseModel.fk_airplane">
+            <End Role="AirPlane" EntitySet="AirPlanes" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="fk_schedule" Association="AirlineDatabaseModel.fk_schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user" Association="AirlineDatabaseModel.fk_user">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Seats" EntitySet="Seats" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AirPlane">
+          <Key>
+            <PropertyRef Name="AirplaneID" />
+          </Key>
+          <Property Name="AirplaneID" Type="Int32" Nullable="false" />
+          <Property Name="AirplaneCode" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Seats_FirstClass" Type="Int32" />
+          <Property Name="Seats_Economy" Type="Int32" />
+          <Property Name="Price_FirstClass" Type="Double" />
+          <Property Name="Price_Economy" Type="Double" />
+          <NavigationProperty Name="Schedules" Relationship="AirlineDatabaseModel.fk_airplane" FromRole="AirPlane" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="ScheduleID" />
+          </Key>
+          <Property Name="ScheduleID" Type="Int32" Nullable="false" />
+          <Property Name="AirplaneID" Type="Int32" />
+          <Property Name="Airport_Departure" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Airport_Arrival" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Time_Departure" Type="DateTime" Precision="3" />
+          <Property Name="Time_Arrival" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AirPlane" Relationship="AirlineDatabaseModel.fk_airplane" FromRole="Schedule" ToRole="AirPlane" />
+          <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_schedule" FromRole="Schedule" ToRole="Seats" />
+        </EntityType>
+        <EntityType Name="Seat">
+          <Key>
+            <PropertyRef Name="SeatID" />
+          </Key>
+          <Property Name="SeatID" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleID" Type="Int32" />
+          <Property Name="SeatType" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CurrentStatus" Type="Int32" />
+          <NavigationProperty Name="Schedule" Relationship="AirlineDatabaseModel.fk_schedule" FromRole="Seats" ToRole="Schedule" />
+          <NavigationProperty Name="User" Relationship="AirlineDatabaseModel.fk_user" FromRole="Seats" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_user" FromRole="Users" ToRole="Seats" />
+        </EntityType>
+        <Association Name="fk_airplane">
+          <End Role="AirPlane" Type="AirlineDatabaseModel.AirPlane" Multiplicity="0..1" />
+          <End Role="Schedule" Type="AirlineDatabaseModel.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AirPlane">
+              <PropertyRef Name="AirplaneID" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="AirplaneID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_schedule">
+          <End Role="Schedule" Type="AirlineDatabaseModel.Schedule" Multiplicity="0..1" />
+          <End Role="Seats" Type="AirlineDatabaseModel.Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="ScheduleID" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user">
+          <End Role="Users" Type="AirlineDatabaseModel.User" Multiplicity="0..1" />
+          <End Role="Seats" Type="AirlineDatabaseModel.Seat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Seats">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AirlineDatabaseModelStoreContainer" CdmEntityContainer="AirlineDatabaseEntities">
+          <EntitySetMapping Name="AirPlanes">
+            <EntityTypeMapping TypeName="AirlineDatabaseModel.AirPlane">
+              <MappingFragment StoreEntitySet="AirPlane">
+                <ScalarProperty Name="AirplaneID" ColumnName="AirplaneID" />
+                <ScalarProperty Name="AirplaneCode" ColumnName="AirplaneCode" />
+                <ScalarProperty Name="Seats_FirstClass" ColumnName="Seats_FirstClass" />
+                <ScalarProperty Name="Seats_Economy" ColumnName="Seats_Economy" />
+                <ScalarProperty Name="Price_FirstClass" ColumnName="Price_FirstClass" />
+                <ScalarProperty Name="Price_Economy" ColumnName="Price_Economy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="AirlineDatabaseModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="AirplaneID" ColumnName="AirplaneID" />
+                <ScalarProperty Name="Airport_Departure" ColumnName="Airport_Departure" />
+                <ScalarProperty Name="Airport_Arrival" ColumnName="Airport_Arrival" />
+                <ScalarProperty Name="Time_Departure" ColumnName="Time_Departure" />
+                <ScalarProperty Name="Time_Arrival" ColumnName="Time_Arrival" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seats">
+            <EntityTypeMapping TypeName="AirlineDatabaseModel.Seat">
+              <MappingFragment StoreEntitySet="Seats">
+                <ScalarProperty Name="SeatID" ColumnName="SeatID" />
+                <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+                <ScalarProperty Name="SeatType" ColumnName="SeatType" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AirlineDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
