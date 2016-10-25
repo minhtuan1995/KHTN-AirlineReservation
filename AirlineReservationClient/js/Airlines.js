@@ -26,6 +26,12 @@ app.controller('airlineController', function ($scope, $http) {
     $scope.inp_airArr = '';
     $scope.inp_airDepDate = '';
     $scope.inp_airArrDate = '';
+    //reservation
+    $scope.SeatSelected = 0;
+    $scope.inp_name = '';
+    $scope.inp_age = '';
+    $scope.inp_email = '';
+    $scope.currentResID = 0;
 
     //show home
     $scope.showHome = function () {
@@ -73,13 +79,101 @@ app.controller('airlineController', function ($scope, $http) {
                 );
     };
 
+    //function to show schedule input and data
+    $scope.showReservations = function () {
+        $scope.hideAll();
+        
+        $http.get(url + "api/Schedule")
+        .success(function (response) {
+            $scope.dataReservation = response;
+            //console.log(response);
+            $scope.divReservation = true;
+        }).error(
+                    function (data, status, headers, config) {
+                        toastr.error = "Error retrieving data!";
+                    }
+                );
+    };
 
+    //show seat information
+    $scope.showSeats = function (resID) {
+        $scope.SeatSelected = 0;
+        $scope.currentResID = resID;
+        $scope.inp_name = '';
+        $scope.inp_age = '';
+        $scope.inp_email = '';
+
+        $http.get(url + "api/Reservation/" + resID)
+        .success(function (response) {
+            $scope.dataSeats = response;
+            //console.log($scope.dataSeats[0].SeatType);
+            $scope.divSeats = true;
+        }).error(
+                    function (data, status, headers, config) {
+                        toastr.error = "Error retrieving data!";
+                    }
+                );
+
+    }
+
+    //function to select a seat
+    $scope.SelectThisSeat = function (seatID, passedStatus) {
+        if (passedStatus == 0) {
+            $scope.SeatSelected = seatID;
+        }
+        else {
+            toastr.warning("Please select a different seat!");
+        }
+    };
+
+    //function to reserve seat
+    $scope.ReserveSeat = function () {
+        if (!$scope.inp_name.length
+            || !$scope.inp_email.length
+            || !angular.isNumber($scope.inp_age)
+            || $scope.SeatSelected == 0
+            ) {
+            toastr.error = "Some fields are blank or have invalid values!";
+        }
+        else {
+            postString = '{"SeatID":' + $scope.SeatSelected + ',';
+            postString += '"Name":"' + $scope.inp_name + '",';
+            postString += '"Age":' + $scope.inp_age + ',';
+            postString += '"Email":"' + $scope.inp_email + '"}';
+
+            $http({
+                method: 'POST',
+                url: url + 'api/Reservation',
+                data: "=" + postString,
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+            }).success(
+                    function (data, status, headers, config) {
+                        $scope.SeatSelected = 0;
+                        $scope.currentResID = 0;
+                        $scope.inp_name = '';
+                        $scope.inp_age = '';
+                        $scope.inp_email = '';
+                        $scope.error = '';
+                        $scope.hideAll();
+                        $scope.showReservations();
+                        toastr.success('Reservation successful!!')
+                    }
+                ).error(
+                    function (data, status, headers, config) {
+                        toastr.error = "Error reserving seat! Please try selecting a different seat.";
+                    }
+                );
+        }
+    };
+    
 
     //hide all divs
     $scope.hideAll = function () {
+        $scope.divSeats = false;
         $scope.divHome = false;
         $scope.divAirlines = false;
         $scope.divSchedule = false;
+        $scope.divReservation = false;
     };
 
     //function to add schedule
