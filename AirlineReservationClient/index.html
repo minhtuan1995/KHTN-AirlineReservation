@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="style/Site.css">
+    <link rel="stylesheet" href="style/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="style/toastr.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="scripts/moment.min.js"></script>
+    <script type="text/javascript" src="scripts/Airlines.js"></script>
+    <script type="text/javascript" src="scripts/toastr.min.js"></script>
+    <title>KHTN - Airline</title>
+</head>
+
+<body>
+    <div ng-app="angularApp" ng-controller="airlineController">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" ng-click="showHome()" href="#">KHTN - Airline</a>
+                </div>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a ng-click="showAirlines()" href="#">Chuyến bay</a></li>
+                        <li><a ng-click="showSchedule()" href="#">Lịch bay</a></li>
+                        <li><a ng-click="showReservations()" href="#">Đặt chỗ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+</body>
+</html>
