@@ -58,4 +58,9 @@ namespace AirlineReservation.Models
         public string Email { get; set; }
     }
 
+    public class AirportEntity
+    {
+        public string AirportID { get; set; }
+        public string AirportName { get; set; }
+    }
 }

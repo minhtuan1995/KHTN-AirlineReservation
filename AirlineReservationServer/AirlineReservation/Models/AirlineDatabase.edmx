@@ -16,6 +16,15 @@
           <Property Name="Price_FirstClass" Type="float" />
           <Property Name="Price_Economy" Type="float" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AirlineDatabase.dbo.AirPort' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AirPort">
+          <Key>
+            <PropertyRef Name="AirportID" />
+          </Key>
+          <Property Name="AirportID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="AirportName" Type="nchar" MaxLength="20" />
+        </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="ScheduleID" />
@@ -42,7 +51,7 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Age" Type="int" />
           <Property Name="Phone" Type="varchar" MaxLength="15" />
           <Property Name="Email" Type="varchar" MaxLength="200" />
@@ -88,6 +97,12 @@
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seats" EntityType="Self.Seats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AirPort" EntityType="Self.AirPort" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[AirPort].[AirportID] AS [AirportID], 
+[AirPort].[AirportName] AS [AirportName]
+FROM [dbo].[AirPort] AS [AirPort]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="fk_airplane" Association="Self.fk_airplane">
             <End Role="AirPlane" EntitySet="AirPlane" />
             <End Role="Schedule" EntitySet="Schedule" />
@@ -122,6 +137,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Seats" EntitySet="Seats" />
           </AssociationSet>
+          <EntitySet Name="AirPorts" EntityType="AirlineDatabaseModel.AirPort" />
         </EntityContainer>
         <EntityType Name="AirPlane">
           <Key>
@@ -165,7 +181,7 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
           <Property Name="Age" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_user" FromRole="Users" ToRole="Seats" />
@@ -207,6 +223,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AirPort">
+          <Key>
+            <PropertyRef Name="AirportID" />
+          </Key>
+          <Property Name="AirportID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="AirportName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -256,6 +279,14 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AirPorts">
+            <EntityTypeMapping TypeName="AirlineDatabaseModel.AirPort">
+              <MappingFragment StoreEntitySet="AirPort">
+                <ScalarProperty Name="AirportName" ColumnName="AirportName" />
+                <ScalarProperty Name="AirportID" ColumnName="AirportID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

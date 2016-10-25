@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AirPlaneController.cs" />
+    <Compile Include="Controllers\AirportController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -142,6 +143,9 @@
       <DependentUpon>AirlineDatabase.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AirPlane.cs">
+      <DependentUpon>AirlineDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AirPort.cs">
       <DependentUpon>AirlineDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Schedule.cs">

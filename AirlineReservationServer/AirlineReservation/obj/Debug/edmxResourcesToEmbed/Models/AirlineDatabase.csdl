@@ -17,6 +17,7 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Seats" EntitySet="Seats" />
     </AssociationSet>
+    <EntitySet Name="AirPorts" EntityType="AirlineDatabaseModel.AirPort" />
   </EntityContainer>
   <EntityType Name="AirPlane">
     <Key>
@@ -60,7 +61,7 @@
       <PropertyRef Name="UserID" />
     </Key>
     <Property Name="UserID" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Name" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
     <Property Name="Age" Type="Int32" />
     <Property Name="Email" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_user" FromRole="Users" ToRole="Seats" />
@@ -102,4 +103,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="AirPort">
+    <Key>
+      <PropertyRef Name="AirportID" />
+    </Key>
+    <Property Name="AirportID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="AirportName" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+  </EntityType>
 </Schema>

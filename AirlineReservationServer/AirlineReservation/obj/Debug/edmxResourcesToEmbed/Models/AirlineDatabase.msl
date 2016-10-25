@@ -47,5 +47,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AirPorts">
+      <EntityTypeMapping TypeName="AirlineDatabaseModel.AirPort">
+        <MappingFragment StoreEntitySet="AirPort">
+          <ScalarProperty Name="AirportName" ColumnName="AirportName" />
+          <ScalarProperty Name="AirportID" ColumnName="AirportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

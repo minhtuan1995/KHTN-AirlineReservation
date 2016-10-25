@@ -40,7 +40,9 @@ app.controller('airlineController', function ($scope, $http) {
     $scope.Age = '';
     $scope.Phone = '';
     $scope.Email = '';
-
+    //airport
+    $scope.AirportID = '';
+    $scope.AirportName = '';
     //show home
     $scope.showHome = function () {
         $scope.hideAll();
@@ -78,10 +80,18 @@ app.controller('airlineController', function ($scope, $http) {
     };
 
 
-
     //function to show schedule input and data
     $scope.showSchedule = function () {
         $scope.hideAll();
+
+        $http.get(url + "api/AirPort")
+        .success(function (response) {
+            $scope.dataAirport = response;
+        }).error(
+                    function (data, status, headers, config) {
+                        toastr.error = "Error retrieving Airline data!";
+                    }
+                );
 
         $http.get(url + "api/Schedule/5")
         .success(function (response) {
@@ -219,8 +229,8 @@ app.controller('airlineController', function ($scope, $http) {
         }
         else {
             postString = '{"AirplaneID":' + $scope.AirplaneID + ',';
-            postString += '"Airport_Departure":"' + $scope.inp_airDep + '",';
-            postString += '"Airport_Arrival":"' + $scope.inp_airArr + '",';
+            postString += '"Airport_Departure":"N' + $scope.inp_airDep + '",';
+            postString += '"Airport_Arrival":"N' + $scope.inp_airArr + '",';
             postString += '"Time_Departure":"' + $scope.inp_airDepDate + '",';
             postString += '"Time_Arrival":"' + $scope.inp_airArrDate + '"}';
             //$scope.error = postString;

@@ -126,14 +126,29 @@
                                     <option ng-repeat="x in airCodes" value="{{x.AirplaneID}}">{{x.AirplaneCode}}</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
+                                <label>Sân bay đi</label>
+                                <select class="form-control" ng-model="inp_airDep">
+                                    <option ng-repeat="x in dataAirport" value="{{x.AirportName}}">{{x.AirportName}} - {{x.AirportID}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sân bay đến</label>
+                                <select class="form-control" ng-model="inp_airArr">
+                                    <option ng-repeat="x in dataAirport" value="{{x.AirportName}}">{{x.AirportName}} - {{x.AirportID}}</option>
+                                </select>
+                            </div>
+
+                            <!--<div class="form-group">
                                 <label>Sân bay đi</label>
                                 <input type="text" class="form-control" ng-model="inp_airDep" placeholder="Nhập sân bay đi" required>
                             </div>
                             <div class="form-group">
                                 <label>Sân bay đến</label>
                                 <input type="text" class="form-control" ng-model="inp_airArr" placeholder="Nhập sân bay đến" required>
-                            </div>
+                            </div>-->
                             <div class="form-group">
                                 <label>Thời gian đi</label>
 

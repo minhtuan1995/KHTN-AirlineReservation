@@ -40,6 +40,8 @@ public partial class AirlineDatabaseEntities : DbContext
 
     public DbSet<User> Users { get; set; }
 
+    public DbSet<AirPort> AirPorts { get; set; }
+
 }
 
 }

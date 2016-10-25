@@ -12,6 +12,7 @@
         <AssociationConnector Association="AirlineDatabaseModel.fk_airplane" ManuallyRouted="false" />
         <AssociationConnector Association="AirlineDatabaseModel.fk_schedule" ManuallyRouted="false" />
         <AssociationConnector Association="AirlineDatabaseModel.fk_user" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AirlineDatabaseModel.AirPort" Width="1.5" PointX="1" PointY="4.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
