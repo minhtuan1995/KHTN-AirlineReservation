@@ -32,6 +32,7 @@
                         <li><a ng-click="showAirlines()" href="#">Chuyến bay</a></li>
                         <li><a ng-click="showSchedule()" href="#">Lịch bay</a></li>
                         <li><a ng-click="showReservations()" href="#">Đặt chỗ</a></li>
+                        <li><a ng-click="showUsers()" href="#">Hành khách</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -264,6 +265,41 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Div for showing airline details -->
+        <div ng-show="divUsers">
+            <div class="row" style="width: 90%; margin-left: 5px;">
+                
+                <div class="col-md-8">
+                    <h4 class="tableCenter">Danh sách hành khách</h4>
+
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>ID</th>
+                            <th>Họ tên</th>
+                            <th>Tuổi</th>
+                            <th>SĐT</th>
+                            <th>Email</th>
+                           <!--<th></th>-->
+                        </tr>
+                        <tr ng-repeat="x in dataUsers">
+                            <td class="tableCenter">{{ x.UserID }}</td>
+                            <td class="tableCenter">{{ x.Name }}</td>
+                            <td class="tableCenter">{{ x.Age }}</td>
+                            <td class="tableCenter">{{ x.Phone }} </td>
+                            <td class="tableCenter">{{ x.Email }} </td>
+                            <!--<td><span class="glyphicon glyphicon-remove" ng-click="RemoveUser({{x.UserID}})"></span></td>-->
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+
+
+                    
         </div>
 
     </div>

@@ -1,6 +1,4 @@
-﻿/************CONFIG*************/
-var url = "http://localhost:26930/";
-/**********CONFIG END***********/
+﻿var url = "http://localhost:26930/";
 
 $(function () {
     $('#datetimepicker2').datetimepicker({
@@ -17,6 +15,7 @@ app.controller('airlineController', function ($scope, $http) {
     $scope.divSchedule = false;
     $scope.divReservation = false;
     $scope.divSeats = false;
+    $scope.divUsers = false;
     $scope.inp_airCode = '';
     $scope.inp_airPE = '';
     $scope.inp_airPF = '';
@@ -35,6 +34,12 @@ app.controller('airlineController', function ($scope, $http) {
     $scope.inp_phone = '';
     $scope.inp_email = '';
     $scope.currentResID = 0;
+    //passenger
+    $scope.UserID = 0;
+    $scope.Name = '';
+    $scope.Age = '';
+    $scope.Phone = '';
+    $scope.Email = '';
 
     //show home
     $scope.showHome = function () {
@@ -56,6 +61,23 @@ app.controller('airlineController', function ($scope, $http) {
                     }
                 );
     };
+
+    //methods for showing/hiding divs
+    $scope.showUsers = function () {
+        $scope.hideAll();
+        $http.get(url + "api/User")
+        .success(function (response) {
+            $scope.dataUsers = response;
+            //console.log(response);
+            $scope.divUsers = true;
+        }).error(
+                    function (data, status, headers, config) {
+                        toastr.error = "Error retrieving data!";
+                    }
+                );
+    };
+
+
 
     //function to show schedule input and data
     $scope.showSchedule = function () {
@@ -181,6 +203,8 @@ app.controller('airlineController', function ($scope, $http) {
         $scope.divAirlines = false;
         $scope.divSchedule = false;
         $scope.divReservation = false;
+        $scope.divUsers = false;
+        
     };
 
     //function to add schedule
