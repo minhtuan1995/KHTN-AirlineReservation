@@ -229,8 +229,8 @@ app.controller('airlineController', function ($scope, $http) {
         }
         else {
             postString = '{"AirplaneID":' + $scope.AirplaneID + ',';
-            postString += '"Airport_Departure":"N' + $scope.inp_airDep + '",';
-            postString += '"Airport_Arrival":"N' + $scope.inp_airArr + '",';
+            postString += '"Airport_Departure":"' + $scope.inp_airDep + '",';
+            postString += '"Airport_Arrival":"' + $scope.inp_airArr + '",';
             postString += '"Time_Departure":"' + $scope.inp_airDepDate + '",';
             postString += '"Time_Arrival":"' + $scope.inp_airArrDate + '"}';
             //$scope.error = postString;
@@ -239,6 +239,7 @@ app.controller('airlineController', function ($scope, $http) {
                 url: url + 'api/Schedule',
                 data: "=" + postString,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+
             }).success(
                     function (data, status, headers, config) {
                         $scope.AirplaneID = '';
