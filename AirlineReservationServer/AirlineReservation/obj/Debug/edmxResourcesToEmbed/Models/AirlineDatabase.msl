@@ -39,6 +39,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="AirlineDatabaseModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Age" ColumnName="Age" />

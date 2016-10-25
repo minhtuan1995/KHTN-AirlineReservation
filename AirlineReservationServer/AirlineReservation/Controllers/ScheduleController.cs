@@ -85,7 +85,7 @@ namespace AirlineReservation.Controllers
                 {
                     seatDetails = new Seat();
                     seatDetails.ScheduleID = sche.ScheduleID;
-                    seatDetails.SeatType = "E";
+                    seatDetails.SeatType = "Y";
                     seatDetails.CurrentStatus = 0;
                     entity.Seats.Add(seatDetails);
                 }
@@ -94,7 +94,7 @@ namespace AirlineReservation.Controllers
                 {
                     seatDetails = new Seat();
                     seatDetails.ScheduleID = sche.ScheduleID;
-                    seatDetails.SeatType = "F";
+                    seatDetails.SeatType = "C";
                     seatDetails.CurrentStatus = 0;
                     entity.Seats.Add(seatDetails);
                 }

@@ -45,6 +45,7 @@ namespace AirlineReservation.Controllers
                 AirlineReservation.Models.User user = new User();
                 user.Name = seat.Name;
                 user.Age = seat.Age;
+                user.Phone = seat.Phone;
                 user.Email = seat.Email;
                 entity.Users.Add(user);
                 entity.SaveChanges();

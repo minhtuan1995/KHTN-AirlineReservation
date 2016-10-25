@@ -64,6 +64,7 @@
     <Property Name="Age" Type="Int32" />
     <Property Name="Email" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Seats" Relationship="AirlineDatabaseModel.fk_user" FromRole="Users" ToRole="Seats" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
   </EntityType>
   <Association Name="fk_airplane">
     <End Role="AirPlane" Type="AirlineDatabaseModel.AirPlane" Multiplicity="0..1" />

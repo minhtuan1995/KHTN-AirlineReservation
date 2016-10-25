@@ -5,25 +5,25 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlineReservation", "AirlineReservation\AirlineReservation.csproj", "{5DF273C4-BD4A-4149-ACBF-77EDB3755050}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Client Website", "..\..\Client Website\", "{60F6F986-1D97-47D9-8835-E311C8C7D1F6}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "AirlineReservationClient", "..\AirlineReservationClient\", "{21798D08-8DAF-456B-B07F-756F073EE24F}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_1873"
-		Debug.AspNetCompiler.PhysicalPath = "..\..\Client Website\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1873\"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_12171"
+		Debug.AspNetCompiler.PhysicalPath = "..\AirlineReservationClient\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12171\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_1873"
-		Release.AspNetCompiler.PhysicalPath = "..\..\Client Website\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1873\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_12171"
+		Release.AspNetCompiler.PhysicalPath = "..\AirlineReservationClient\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_12171\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1873"
-		SlnRelativePath = "..\..\Client Website\"
+		VWDPort = "12171"
+		SlnRelativePath = "..\AirlineReservationClient\"
 	EndProjectSection
 EndProject
 Global
@@ -36,10 +36,10 @@ Global
 		{5DF273C4-BD4A-4149-ACBF-77EDB3755050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DF273C4-BD4A-4149-ACBF-77EDB3755050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DF273C4-BD4A-4149-ACBF-77EDB3755050}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60F6F986-1D97-47D9-8835-E311C8C7D1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60F6F986-1D97-47D9-8835-E311C8C7D1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60F6F986-1D97-47D9-8835-E311C8C7D1F6}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{60F6F986-1D97-47D9-8835-E311C8C7D1F6}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{21798D08-8DAF-456B-B07F-756F073EE24F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21798D08-8DAF-456B-B07F-756F073EE24F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21798D08-8DAF-456B-B07F-756F073EE24F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{21798D08-8DAF-456B-B07F-756F073EE24F}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

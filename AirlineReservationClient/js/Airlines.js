@@ -1,4 +1,6 @@
+﻿/************CONFIG*************/
 var url = "http://localhost:26930/";
+/**********CONFIG END***********/
 
 $(function () {
     $('#datetimepicker2').datetimepicker({
@@ -30,6 +32,7 @@ app.controller('airlineController', function ($scope, $http) {
     $scope.SeatSelected = 0;
     $scope.inp_name = '';
     $scope.inp_age = '';
+    $scope.inp_phone = '';
     $scope.inp_email = '';
     $scope.currentResID = 0;
 
@@ -101,6 +104,7 @@ app.controller('airlineController', function ($scope, $http) {
         $scope.currentResID = resID;
         $scope.inp_name = '';
         $scope.inp_age = '';
+        $scope.inp_phone = '';
         $scope.inp_email = '';
 
         $http.get(url + "api/Reservation/" + resID)
@@ -122,7 +126,7 @@ app.controller('airlineController', function ($scope, $http) {
             $scope.SeatSelected = seatID;
         }
         else {
-            toastr.warning("Please select a different seat!");
+            toastr.warning("Vui lòng chọn vị trí khác!");
         }
     };
 
@@ -133,12 +137,13 @@ app.controller('airlineController', function ($scope, $http) {
             || !angular.isNumber($scope.inp_age)
             || $scope.SeatSelected == 0
             ) {
-            toastr.error = "Some fields are blank or have invalid values!";
+            toastr.error = "Điền sai thông tin!";
         }
         else {
             postString = '{"SeatID":' + $scope.SeatSelected + ',';
             postString += '"Name":"' + $scope.inp_name + '",';
             postString += '"Age":' + $scope.inp_age + ',';
+            postString += '"Phone":"' + $scope.inp_phone + '",';
             postString += '"Email":"' + $scope.inp_email + '"}';
 
             $http({
@@ -152,15 +157,17 @@ app.controller('airlineController', function ($scope, $http) {
                         $scope.currentResID = 0;
                         $scope.inp_name = '';
                         $scope.inp_age = '';
+                        $scope.inp_phone = '';
+
                         $scope.inp_email = '';
                         $scope.error = '';
                         $scope.hideAll();
                         $scope.showReservations();
-                        toastr.success('Reservation successful!!')
+                        toastr.success('Đặt chỗ thành công, cảm ơn quí khách!!')
                     }
                 ).error(
                     function (data, status, headers, config) {
-                        toastr.error = "Error reserving seat! Please try selecting a different seat.";
+                        toastr.error = "Vui lòng chọn vị trí ghế khác.";
                     }
                 );
         }
@@ -184,7 +191,7 @@ app.controller('airlineController', function ($scope, $http) {
             || !$scope.inp_airDepDate.length
             || !$scope.inp_airArrDate.length
             ) {
-            toastr.error = "Some fields are blank or have invalid values!";
+            toastr.error = "Điền sai thông tin!";
         }
         else {
             postString = '{"AirplaneID":' + $scope.AirplaneID + ',';
@@ -208,7 +215,7 @@ app.controller('airlineController', function ($scope, $http) {
                         $scope.error = '';
                         $scope.hideAll();
                         $scope.showSchedule();
-                        toastr.success('Schedule added successfully!!')
+                        toastr.success('Thêm lịch trình bay thành công!!')
                     }
                 ).error(
                     function (data, status, headers, config) {
@@ -240,7 +247,7 @@ app.controller('airlineController', function ($scope, $http) {
             || !angular.isNumber($scope.inp_airSE)
             || !angular.isNumber($scope.inp_airSF)
             ) {
-            toastr.error = "Some fields are blank or have invalid values!";
+            toastr.error = "Nhập sai thông tin!";
         }
         else {
             postString = '{"AirplaneCode":"' + $scope.inp_airCode + '",';
@@ -264,11 +271,11 @@ app.controller('airlineController', function ($scope, $http) {
                         $scope.error = '';
                         $scope.hideAll();
                         $scope.showAirlines();
-                        toastr.success('New Airline added successfully!!')
+                        toastr.success('Chuyến bay mới đã được tạo thành công!!')
                     }
                 ).error(
                     function (data, status, headers, config) {
-                        toastr.error = "Error saving new Airline!";
+                        toastr.error = "Lỗi tạo chuyến bay mới!";
                     }
                 );
         }
